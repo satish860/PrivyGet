@@ -31,7 +31,11 @@ namespace PrivyGet
             }
 
             var builder = new ODataConventionModelBuilder();
-            builder.EntitySet<ODataPackage>("Packages");
+            builder.DataServiceVersion = new Version("2.0");
+            builder.MaxDataServiceVersion = builder.DataServiceVersion;
+            var packageCollection = builder.EntitySet<ODataPackage>("Packages");
+            packageCollection.EntityType.HasKey(p => p.Id);
+            packageCollection.EntityType.HasKey(p => p.Version);
             app.UseMvc(routerBuilder =>
             {
                 routerBuilder.MapODataServiceRoute("ODataRoute", "odata", builder.GetEdmModel());
