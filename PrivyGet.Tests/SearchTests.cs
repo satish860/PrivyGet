@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 using Xunit;
+using FluentAssertions;
 
 namespace PrivyGet.Tests
 {
@@ -22,7 +23,7 @@ namespace PrivyGet.Tests
             string URL = "https://localhost:5001/odata/Search()?$filter=IsAbsoluteLatestVersion&searchTerm=''&targetFramework='net46'&includePrerelease=true&$skip=0&$top=26&semVerLevel=2.0";
             var client = webApplicationFactory.CreateClient();
             var response = await client.GetAsync(URL);
-
+            response.IsSuccessStatusCode.Should().BeTrue();
         }
     }
 }
