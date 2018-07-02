@@ -5,6 +5,8 @@ VisualStudioVersion = 15.0.27703.2035
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PrivyGet", "PrivyGet\PrivyGet.csproj", "{CF957B79-0F79-44EB-BEE3-CCE77E5E247E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PrivyGet.Tests", "PrivyGet.Tests\PrivyGet.Tests.csproj", "{83DFFEB3-DA35-478F-8A26-EAB8DDEF3670}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{CF957B79-0F79-44EB-BEE3-CCE77E5E247E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CF957B79-0F79-44EB-BEE3-CCE77E5E247E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CF957B79-0F79-44EB-BEE3-CCE77E5E247E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{83DFFEB3-DA35-478F-8A26-EAB8DDEF3670}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{83DFFEB3-DA35-478F-8A26-EAB8DDEF3670}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{83DFFEB3-DA35-478F-8A26-EAB8DDEF3670}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{83DFFEB3-DA35-478F-8A26-EAB8DDEF3670}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

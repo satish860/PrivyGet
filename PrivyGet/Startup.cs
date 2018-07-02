@@ -4,6 +4,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNet.OData.Builder;
 using Microsoft.AspNet.OData.Extensions;
+using Microsoft.AspNet.OData.Routing;
+using Microsoft.AspNet.OData.Routing.Conventions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -31,6 +33,9 @@ namespace PrivyGet
             }
 
             var builder = new ODataConventionModelBuilder();
+            var conventions= ODataRoutingConventions.CreateDefault();
+            conventions.Insert(0, new MethodNameActionRoutingConvention());
+            
             builder.DataServiceVersion = new Version("2.0");
             builder.MaxDataServiceVersion = builder.DataServiceVersion;
             var packageCollection = builder.EntitySet<ODataPackage>("Packages");
@@ -46,7 +51,7 @@ namespace PrivyGet
             findPackagesAction.ReturnsCollectionFromEntitySet(packageCollection);
             app.UseMvc(routerBuilder =>
             {
-                routerBuilder.MapODataServiceRoute("ODataRoute", "odata", builder.GetEdmModel());
+                routerBuilder.MapODataServiceRoute("ODataRoute", "odata", builder.GetEdmModel(),new DefaultODataPathHandler(), conventions);
             });
         }
     }
