@@ -19,21 +19,12 @@ namespace PrivyGet
             IActionDescriptorCollectionProvider actionCollectionProvider =
                 routeContext.HttpContext.RequestServices.GetService(typeof(IActionDescriptorCollectionProvider)) as IActionDescriptorCollectionProvider;
             ODataPath odataPath = routeContext.HttpContext.ODataFeature().Path;
-            HttpRequest request = routeContext.HttpContext.Request;
-            var actionName = request.Path.Value.Split('/')[2];
-            if (actionName == "FindPackagesById()")
+            ControllerActionDescriptor actionDescriptor = actionCollectionProvider.ActionDescriptors
+                .Items.OfType<ControllerActionDescriptor>()
+                .FirstOrDefault(p => p.ActionName == odataPath.Path.FirstSegment.Identifier);
 
-                return new[]
-                {
-                    new ControllerActionDescriptor
-                    {
-                        ActionName ="FindPackagesById",
-                        ControllerName="PackagesController",
-                        
-                    }
-                };
-
-
+            if (actionDescriptor != null)
+                return new[] { actionDescriptor };
 
             // actionCollectionProvider.ActionDescriptors.Items.Where(p=>p.DisplayName==request.pa)
             return null;
