@@ -36,6 +36,14 @@ namespace PrivyGet
             var packageCollection = builder.EntitySet<ODataPackage>("Packages");
             packageCollection.EntityType.HasKey(p => p.Id);
             packageCollection.EntityType.HasKey(p => p.Version);
+            var searchAction = builder.Action("Search");
+            searchAction.Parameter<string>("searchTerm");
+            searchAction.Parameter<string>("targetFramework");
+            searchAction.Parameter<bool>("includePrerelease");
+            searchAction.ReturnsCollectionFromEntitySet(packageCollection);
+            var findPackagesAction = builder.Action("FindPackagesById");
+            findPackagesAction.Parameter<string>("id");
+            findPackagesAction.ReturnsCollectionFromEntitySet(packageCollection);
             app.UseMvc(routerBuilder =>
             {
                 routerBuilder.MapODataServiceRoute("ODataRoute", "odata", builder.GetEdmModel());
