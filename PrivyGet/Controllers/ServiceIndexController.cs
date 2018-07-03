@@ -6,7 +6,7 @@ using PrivyGet.Extensions;
 
 namespace PrivyGet.Controllers
 {
-    
+
     public class ServiceIndexController : Controller
     {
         public ActionResult<ServiceIndexModel> Get()
@@ -29,7 +29,7 @@ namespace PrivyGet.Controllers
                     },
                     new Resources
                     {
-                        Id ="https://api-v2v3search-0.nuget.org/query",
+                        Id =searchUrl,
                         Type="SearchQueryService/3.0.0-rc"
                     },
                     new Resources
