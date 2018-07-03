@@ -36,36 +36,7 @@ namespace PrivyGet
             {
                 app.UseDeveloperExceptionPage();
             }
-
-            var builder = new ODataConventionModelBuilder();
-            var conventions= ODataRoutingConventions.CreateDefault();
-            conventions.Insert(0, new MethodNameActionRoutingConvention());
-            
-            builder.DataServiceVersion = new Version("2.0");
-            builder.MaxDataServiceVersion = builder.DataServiceVersion;
-            var packageCollection = builder.EntitySet<ODataPackage>("Packages");
-            packageCollection.EntityType.HasKey(p => p.Id);
-            packageCollection.EntityType.HasKey(p => p.Version);
-            //var configuration = builder.EntityType<ODataPackage>().Action("Search");
-            //configuration.Parameter<string>("searchTerm");
-            //configuration.Parameter<string>("targetFramework");
-            //configuration.Parameter<bool>("includePrerelease");
-            var searchAction = builder.Action("Search");
-            searchAction.Parameter<string>("searchTerm");
-            searchAction.Parameter<string>("targetFramework");
-            searchAction.Parameter<bool>("includePrerelease");
-            searchAction.ReturnsCollectionFromEntitySet(packageCollection);
-            var findPackagesAction = builder.Action("FindPackagesById");
-            findPackagesAction.Parameter<string>("id");
-            findPackagesAction.ReturnsCollectionFromEntitySet(packageCollection);
-            app.UseMvc(routerBuilder =>
-            {
-
-                routerBuilder.MapODataServiceRoute("ODataRoute", "odata",
-                    builder.GetEdmModel(),
-                    new DefaultODataPathHandler(),
-                    conventions);
-            });
+            app.UseMvcWithDefaultRoute();
         }
     }
 }
