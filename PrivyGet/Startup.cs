@@ -9,6 +9,7 @@ using Microsoft.AspNet.OData.Routing.Conventions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc.Formatters;
 using Microsoft.Extensions.DependencyInjection;
 using PrivyGet.Model;
 
@@ -21,7 +22,11 @@ namespace PrivyGet
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddOData();
-            services.AddMvc();
+            services.AddMvc(options=>
+            {
+                options.RespectBrowserAcceptHeader = true;
+                options.OutputFormatters.Add(new XmlSerializerOutputFormatter());
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -55,6 +60,7 @@ namespace PrivyGet
             findPackagesAction.ReturnsCollectionFromEntitySet(packageCollection);
             app.UseMvc(routerBuilder =>
             {
+
                 routerBuilder.MapODataServiceRoute("ODataRoute", "odata",
                     builder.GetEdmModel(),
                     new DefaultODataPathHandler(),

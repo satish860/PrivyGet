@@ -21,7 +21,7 @@ namespace PrivyGet
             ODataPath odataPath = routeContext.HttpContext.ODataFeature().Path;
             ControllerActionDescriptor actionDescriptor = actionCollectionProvider.ActionDescriptors
                 .Items.OfType<ControllerActionDescriptor>()
-                .FirstOrDefault(p => p.ActionName == odataPath.Path.FirstSegment.Identifier);
+                .FirstOrDefault(p => p.ActionName == odataPath.Path?.FirstSegment?.Identifier);
 
             if (actionDescriptor != null)
                 return new[] { actionDescriptor };
