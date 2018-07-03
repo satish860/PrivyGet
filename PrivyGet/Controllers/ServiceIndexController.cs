@@ -1,9 +1,8 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc;
+using PrivyGet.Model;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using PrivyGet.Model;
+using PrivyGet.Extensions;
 
 namespace PrivyGet.Controllers
 {
@@ -13,6 +12,7 @@ namespace PrivyGet.Controllers
     {
         public ActionResult<ServiceIndexModel> Get()
         {
+            string searchUrl = this.Url.AbsoluteAction("Get", "search");
             return new ServiceIndexModel
             {
                 version = "3.0.0",

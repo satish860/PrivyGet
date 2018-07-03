@@ -1,11 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc.Testing;
-using System;
-using System.Collections.Generic;
+﻿using FluentAssertions;
+using Microsoft.AspNetCore.Mvc.Testing;
+using Newtonsoft.Json;
+using PrivyGet.Model;
 using System.Net.Http;
-using System.Text;
 using System.Threading.Tasks;
 using Xunit;
-using FluentAssertions;
+using System.Linq;
 
 namespace PrivyGet.Tests
 {
@@ -27,6 +27,17 @@ namespace PrivyGet.Tests
             string URL = "api/serviceindex";
             var response = await this.httpClient.GetAsync(URL);
             response.IsSuccessStatusCode.Should().BeTrue();
+        }
+        [Fact]
+        public async Task ShouldBeAbleToGetTheSearchURLWithTheCurrentBaseAddress()
+        {
+            string URL = "api/serviceindex";
+            var response = await this.httpClient.GetAsync(URL);
+            response.EnsureSuccessStatusCode();
+            var messageModel = await response.Content.ReadAsAsync<ServiceIndexModel>();
+            var resource = messageModel.Resources
+                .FirstOrDefault(p => p.Type == "SearchQueryService/3.0.0-rc");
+            resource.Id.Should().Be("http://localhost/api/Search");
         }
     }
 }
