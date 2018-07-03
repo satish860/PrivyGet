@@ -24,14 +24,14 @@ namespace PrivyGet.Tests
         [Fact]
         public async Task ShouldBeAbleToConfigureAndGetTheBasicResponseFromAPI()
         {
-            string URL = "api/serviceindex";
+            string URL = "serviceindex/get";
             var response = await this.httpClient.GetAsync(URL);
             response.IsSuccessStatusCode.Should().BeTrue();
         }
         [Fact]
         public async Task ShouldBeAbleToGetTheSearchURLWithTheCurrentBaseAddress()
         {
-            string URL = "api/serviceindex";
+            string URL = "serviceindex/get";
             var response = await this.httpClient.GetAsync(URL);
             response.EnsureSuccessStatusCode();
             var messageModel = await response.Content.ReadAsAsync<ServiceIndexModel>();

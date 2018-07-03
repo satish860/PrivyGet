@@ -6,8 +6,7 @@ using PrivyGet.Extensions;
 
 namespace PrivyGet.Controllers
 {
-    [Route("api/[controller]")]
-    [ApiController]
+    
     public class ServiceIndexController : Controller
     {
         public ActionResult<ServiceIndexModel> Get()

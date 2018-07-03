@@ -25,7 +25,12 @@ namespace PrivyGet
             {
                 app.UseDeveloperExceptionPage();
             }
-            app.UseMvcWithDefaultRoute();
+            app.UseMvc(options=>
+            {
+                options.MapRoute("index.json", "api/v3/index.json", new { controller = "ServiceIndex", action = "Get" });
+                options.MapRoute(name: "default",
+                  template: "{controller=Home}/{action=Index}/{id?}");
+            });
         }
     }
 }
