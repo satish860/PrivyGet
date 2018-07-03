@@ -24,7 +24,7 @@ namespace PrivyGet.Tests
         [Fact]
         public async Task ShouldBeAbleToConfigureAndGetTheBasicResponseFromAPI()
         {
-            string URL = "/serviceIndex";
+            string URL = "api/serviceindex";
             var response = await this.httpClient.GetAsync(URL);
             response.IsSuccessStatusCode.Should().BeTrue();
         }
