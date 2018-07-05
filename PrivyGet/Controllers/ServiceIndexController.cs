@@ -30,17 +30,17 @@ namespace PrivyGet.Controllers
                     new Resources
                     {
                         Id =searchUrl,
-                        Type="SearchQueryService/3.0.0-rc"
+                        Type="SearchQueryService/Versioned"
                     },
                     new Resources
                     {
                         Id ="https://api-v2v3search-0.nuget.org/autocomplete",
-                        Type="SearchAutocompleteService/3.0.0-rc"
+                        Type="SearchAutocompleteService/Versioned"
                     },
                     new Resources
                     {
                         Id ="https://api.nuget.org/v3/registration2/",
-                        Type="RegistrationsBaseUrl/3.0.0-rc"
+                        Type="RegistrationsBaseUrl/3.4.0"
                     },
                 }
             };
