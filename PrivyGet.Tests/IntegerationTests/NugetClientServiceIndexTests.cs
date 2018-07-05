@@ -1,13 +1,15 @@
 ﻿using Microsoft.AspNetCore.Mvc.Testing;
 using NuGet.Configuration;
-using NuGet.Packaging.PackageCreation.Resources;
-using NuGet.Repositories;
+using NuGet.Protocol;
+using NuGet.Protocol.Core.Types;
 using System;
 using System.Collections.Generic;
 using System.Net.Http;
-using System.Text;
-using System.Threading.Tasks;
 using Xunit;
+using System.Linq;
+using System.Threading.Tasks;
+using NuGet.Packaging.Core;
+using NuGet.Versioning;
 
 namespace PrivyGet.Tests.IntegerationTests
 {
@@ -21,11 +23,20 @@ namespace PrivyGet.Tests.IntegerationTests
             this.httpClient = webApplicationFactory.CreateDefaultClient();
         }
 
+        [Fact]
         public async Task ShouldBeAbleToConsumeServiceDocumentAndGetBaseUrl()
         {
-            string URL = "v3/index.json";
+            string URL = "api/v3/index.json";
             string NugetUrl = this.httpClient.BaseAddress + URL;
-           // Settings.
+            var response= await this.httpClient.GetAsync(NugetUrl);
+            ISettings settings = Settings.LoadSpecificSettings(@"D:\PrivyGet\PrivyGet\PrivyGet.Tests\", "Nuget.config");
+            List<Lazy<INuGetResourceProvider>> lazies = new List<Lazy<INuGetResourceProvider>>();
+            lazies.AddRange(Repository.Provider.GetCoreV3());
+            var sourceRepositery = new SourceRepositoryProvider(settings, lazies);
+            var repo = sourceRepositery.GetRepositories().FirstOrDefault();
+            var resgistrationSource = await repo.GetResourceAsync<RegistrationResourceV3>();
+            var packageidentity = new PackageIdentity("json", NuGetVersion.Parse("1.0.0"));
+            var packageEntry = resgistrationSource.GetUri(packageidentity);
         }
     }
 }
